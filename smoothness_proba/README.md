@@ -1,4 +1,4 @@
-# Smoothness simulation
+# Smoothness probability
 
 This code evaluates the probability of almost-smoothness, by
 generating random factored numbers, and counting how many are
