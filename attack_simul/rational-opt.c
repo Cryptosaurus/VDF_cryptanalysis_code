@@ -178,8 +178,9 @@ prime_data *precompute(uint32_t B) {
 int main (int argc, char *argv[]) {
 #if PSIZE==256
   // 256-bit parameters
-  uint32_t B = 1ULL<<27;
-  uint64_t C = 1ULL<<21;
+  uint32_t B = 1ULL<<27;   // Smooth part          ($B$ in the paper)
+  uint64_t C = 1ULL<<21;   // Number of candidates ($R$ in the paper)
+  int32_t BB = FIXEDP(45); // Medium-factor size   ($B'$ in the paper)
 
   // 0x40000000000000000000000000000000224698fc094cf91b992d30ed00000001
   word P = ((((word)0x4000000000000000LL << 128) + 0x224698fc094cf91bLL) << 64) +0x992d30ed00000001LL;
@@ -187,6 +188,7 @@ int main (int argc, char *argv[]) {
   // 128-bit parameters
   uint32_t B = 1ULL<<14;
   uint64_t C = 1ULL<<9;
+  int32_t BB = FIXEDP(45);
 
   // 0x30000003000000010000000000000001
   word P = (((word)0x3000000300000001)<<64) + 1;
@@ -340,7 +342,7 @@ int main (int argc, char *argv[]) {
   int32_t min = Usmooth[0]+Vsmooth[0], minat = 0;
   for (uint64_t i=0; i<C; i++) {
     int32_t smooth = Usmooth[i] > Vsmooth[i]? Usmooth[i]: Vsmooth[i];
-    if (smooth < FIXEDP(45)) {
+    if (smooth < BB) {
       printf ("[%10lu]: %f %f\n", i,
 	      Vsmooth[i]/((float) FIXEDP(1)), Usmooth[i]/((float) FIXEDP(1)));
       win=1;

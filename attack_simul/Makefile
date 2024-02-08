@@ -4,4 +4,4 @@ CFLAGS = -Wall -Wextra -std=gnu2x -O3 -march=native -g -fopenmp
 LDLIBS = -lm
 
 
-all: rational-ref rational-opt
+all: parallel_smooth rational-ref rational-opt
